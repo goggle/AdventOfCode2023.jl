@@ -1,7 +1,11 @@
 name = "AdventOfCode2023"
 uuid = "964588ed-c423-46c6-a247-2a224ae2a970"
-authors = ["Alexander Seiler <seileralex@gmail.com> and contributors"]
+authors = ["Alexander Seiler <seileralex@gmail.com>"]
 version = "0.1.0"
+
+[deps]
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
 [compat]
 julia = "1.8"

@@ -1,0 +1,13 @@
+name = "AdventOfCode2023"
+uuid = "964588ed-c423-46c6-a247-2a224ae2a970"
+authors = ["Alexander Seiler <seileralex@gmail.com> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1.8"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

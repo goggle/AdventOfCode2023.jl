@@ -10,7 +10,7 @@ This Julia package contains my solutions for [Advent of Code 2023](https://adven
 
 | Day | Problem | Time | Allocated memory | Source |
 |----:|:-------:|-----:|-----------------:|:------:|
-<!-- | 1 | [:white_check_mark:](https://adventofcode.com/2023/day/1) |  |  | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day01.jl) | -->
+| 1 | [:white_check_mark:](https://adventofcode.com/2023/day/1) | 2.304 ms | 3.00 MiB | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day01.jl) |
 <!-- | 2 | [:white_check_mark:](https://adventofcode.com/2023/day/2) |  |  | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day02.jl) | -->
 <!-- | 3 | [:white_check_mark:](https://adventofcode.com/2023/day/3) |  |  | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day03.jl) | -->
 <!-- | 4 | [:white_check_mark:](https://adventofcode.com/2023/day/4) |  |  | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day04.jl) | -->

@@ -5,7 +5,8 @@ using AdventOfCode2023
 
 function day02(input::String = readInput(joinpath(@__DIR__, "..", "data", "day02.txt")))
     data = parse_input(input)
-    return [part1(data), part2(data)]
+    p2 = sum(prod(maximum(x -> x[i], v) for i ∈ 1:3) for v ∈ values(data))
+    return [part1(data), p2]
 end
 
 function parse_input(input)
@@ -48,15 +49,5 @@ function part1(data::Dict{Int, Vector{Tuple{Int,Int,Int}}})
     return s
 end
 
-function part2(data::Dict{Int, Vector{Tuple{Int,Int,Int}}})
-    s = 0
-    for (_, v) ∈ data
-        minr = maximum(x -> x[1], v)
-        ming = maximum(x -> x[2], v)
-        minb = maximum(x -> x[3], v)
-        s += minr * ming * minb
-    end
-    return s
-end
 
 end # module

@@ -14,3 +14,18 @@ end
     @test AdventOfCode2023.Day02.day02(sample) == [8, 2286]
     @test AdventOfCode2023.Day02.day02() == [2486, 87984]
 end
+
+@testset "Day 3" begin
+    sample = "467..114..\n" *
+             "...*......\n" *
+             "..35..633.\n" *
+             "......#...\n" *
+             "617*......\n" *
+             ".....+.58.\n" *
+             "..592.....\n" *
+             "......755.\n" *
+             "...\$.*....\n" *
+             ".664.598..\n"
+    @test AdventOfCode2023.Day03.day03(sample) == [4361, 467835]
+    @test AdventOfCode2023.Day03.day03() == [509115, 75220503]
+end

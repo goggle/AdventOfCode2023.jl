@@ -24,10 +24,7 @@ eval_points(nwins::Int) = nwins > 0 ? 2^(nwins - 1) : 0
 function part2(winning_numbers::Vector{Vector{Int}}, my_numbers::Vector{Vector{Int}})
     ncards = ones(Int, length(winning_numbers))
     for (i, (w, m)) ∈ enumerate(zip(winning_numbers, my_numbers))
-        ncommon = length(intersect(w, m))
-        for k = i+1:i+ncommon
-            ncards[k] += ncards[i]
-        end
+        ncards[i+1:i+length(intersect(w, m))] .+= ncards[i]
     end
     return ncards |> sum
 end

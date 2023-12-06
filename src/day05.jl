@@ -24,7 +24,7 @@ function parse_input(input::AbstractString)
     return seeds, data
 end
 
-function map_number(data::Dict{Tuple{String,String},Matrix{Int}}, source::String, destination::String, number::Int)
+function perform_mapping(data::Dict{Tuple{String,String},Matrix{Int}}, source::String, destination::String, number::Int)
     M = data[(source, destination)]
     for row ∈ axes(M, 1)
         if number ∈ M[row, 2]:M[row, 2]+M[row, 3]-1
@@ -34,7 +34,7 @@ function map_number(data::Dict{Tuple{String,String},Matrix{Int}}, source::String
     return number
 end
 
-function map_ranges(data::Dict{Tuple{String,String},Matrix{Int}}, source::String, destination::String, numbers::Set{UnitRange{Int}})
+function perform_mapping(data::Dict{Tuple{String,String},Matrix{Int}}, source::String, destination::String, numbers::Set{UnitRange{Int}})
     M = data[(source, destination)]
     newset = Set{UnitRange{Int}}()
     while !isempty(numbers)
@@ -42,37 +42,28 @@ function map_ranges(data::Dict{Tuple{String,String},Matrix{Int}}, source::String
         ran = pop!(numbers)
         for row ∈ axes(M, 1)
             inter = intersect(ran, M[row, 2]:M[row, 2]+M[row, 3]-1)
-            if length(inter) > 0
+            if !isempty(inter)
                 mapped = true
                 push!(newset, inter[1] - M[row,2] + M[row,1] : inter[end] - M[row,2] + M[row,1])
                 left = ran[1]:inter[1]-1
-                if length(left) > 0
-                    push!(numbers, left)
-                end
+                isempty(left) || push!(numbers, left)
                 right = inter[end]+1:ran[end]
-                if length(right) > 0
-                    push!(numbers, right)
-                end
+                isempty(right) || push!(numbers, right)
                 break
             end
         end
-        if !mapped
-            push!(newset, ran)
-        end
+        mapped || push!(newset, ran)
     end
     return newset
 end
 
 function part1(seeds::Vector{Int}, data::Dict{Tuple{String,String},Matrix{Int}})
-    locations = Vector{Int}()
+    locations = Set{Int}()
+    chain = ("seed", "soil", "fertilizer", "water", "light", "temperature", "humidity", "location")
     for number ∈ seeds
-        number = map_number(data, "seed", "soil", number)
-        number = map_number(data, "soil", "fertilizer", number)
-        number = map_number(data, "fertilizer", "water", number)
-        number = map_number(data, "water", "light", number)
-        number = map_number(data, "light", "temperature", number)
-        number = map_number(data, "temperature", "humidity", number)
-        number = map_number(data, "humidity", "location", number)
+        for (src, dest) ∈ zip(chain[1:end-1], chain[2:end])
+            number = perform_mapping(data, src, dest, number)
+        end
         push!(locations, number)
     end
     return minimum(locations)
@@ -80,19 +71,15 @@ end
 
 function part2(seeds::Vector{Int}, data::Dict{Tuple{String,String},Matrix{Int}})
     locations = Set{UnitRange{Int}}()
+    chain = ("seed", "soil", "fertilizer", "water", "light", "temperature", "humidity", "location")
     seedstarts = seeds[1:2:end]
     seedlengths = seeds[2:2:end]
     for (ss, sl) ∈ zip(seedstarts, seedlengths)
-        numbers = map_ranges(data, "seed", "soil", Set([ss:ss+sl-1]))
-        numbers = map_ranges(data, "soil", "fertilizer", numbers)
-        numbers = map_ranges(data, "fertilizer", "water", numbers)
-        numbers = map_ranges(data, "water", "light", numbers)
-        numbers = map_ranges(data, "light", "temperature", numbers)
-        numbers = map_ranges(data, "temperature", "humidity", numbers)
-        numbers = map_ranges(data, "humidity", "location", numbers)
-        for loc ∈ numbers
-            push!(locations, loc)
+        numbers = Set([ss:ss+sl-1])
+        for (src, dest) ∈ zip(chain[1:end-1], chain[2:end])
+            numbers = perform_mapping(data, src, dest, numbers)
         end
+        push!(locations, numbers...)
     end
     return minimum(x -> x[1], locations)
 end

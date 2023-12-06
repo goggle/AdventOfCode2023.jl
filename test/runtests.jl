@@ -71,3 +71,10 @@ end
     @test AdventOfCode2023.Day05.day05(sample) == [35, 46]
     @test AdventOfCode2023.Day05.day05() == [403695602, 219529182]
 end
+
+@testset "Day 6" begin
+    sample = "Time:      7  15   30\n" *
+             "Distance:  9  40  200\n"
+    @test AdventOfCode2023.Day06.day06(sample) == [288, 71503]
+    @test AdventOfCode2023.Day06.day06() == [1155175, 35961505]
+end

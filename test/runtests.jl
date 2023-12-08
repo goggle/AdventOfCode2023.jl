@@ -88,3 +88,14 @@ end
     @test AdventOfCode2023.Day07.day07(sample) == [6440, 5905]
     @test AdventOfCode2023.Day07.day07() == [253910319, 254083736]
 end
+
+@testset "Day 8" begin
+    sample = "LLR\n" *
+             "\n" *
+             "AAA = (BBB, BBB)\n" *
+             "BBB = (AAA, ZZZ)\n" *
+             "ZZZ = (ZZZ, ZZZ)\n"
+    @test AdventOfCode2023.Day08.day08(sample) == [6, 6]
+    @test AdventOfCode2023.Day08.day08() == [19637, 8811050362409]
+    
+end

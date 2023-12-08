@@ -3,12 +3,12 @@ module Day07
 using AdventOfCode2023
 
 struct Hand
-    cards::Vector{Int}
+    cards::Vector{Int8}
     bid::Int
 end
 
 struct Handp2
-    cards::Vector{Int}
+    cards::Vector{Int8}
     bid::Int
 end
 
@@ -22,28 +22,17 @@ function day07(input::String = readInput(joinpath(@__DIR__, "..", "data", "day07
 end
 
 function _to_value(c::Char; p2 = false)
-    p2 && c == 'J' && return 1
-    isdigit(c) && return c - '0'
-    c == 'T' && return 10
-    c == 'J' && return 11
-    c == 'Q' && return 12
-    c == 'K' && return 13
-    c == 'A' && return 14
-    return 0
+    p2 && c == 'J' && return Int8(1)
+    isdigit(c) && return Int8(c - '0')
+    c == 'T' && return Int8(10)
+    c == 'J' && return Int8(11)
+    c == 'Q' && return Int8(12)
+    c == 'K' && return Int8(13)
+    c == 'A' && return Int8(14)
+    return Int8(0)
 end
 
-function Base.isless(a::Hand, b::Hand)
-    scores = [score(a), score(b)]
-    scores[1] < scores[2] && return true
-    scores[1] > scores[2] && return false
-    for (v1, v2) ∈ zip(a.cards, b.cards)
-        v1 < v2 && return true
-        v1 > v2 && return false
-    end
-    return false
-end
-
-function Base.isless(a::Handp2, b::Handp2)
+function Base.isless(a::Union{Hand,Handp2}, b::Union{Hand,Handp2})
     scores = [score(a), score(b)]
     scores[1] < scores[2] && return true
     scores[1] > scores[2] && return false
@@ -55,7 +44,7 @@ function Base.isless(a::Handp2, b::Handp2)
 end
 
 function _score(hand::Union{Hand,Handp2})
-    bins = Dict{Int,Int}()
+    bins = Dict{Int8,Int8}()
     for card ∈ hand.cards
         if haskey(bins, card)
             bins[card] += 1

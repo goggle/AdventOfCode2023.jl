@@ -105,5 +105,4 @@ end
              "10 13 16 21 30 45\n"
     @test AdventOfCode2023.Day09.day09(sample) == [114, 2]
     @test AdventOfCode2023.Day09.day09() == [1789635132, 913]
-
 end

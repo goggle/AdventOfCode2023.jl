@@ -97,5 +97,13 @@ end
              "ZZZ = (ZZZ, ZZZ)\n"
     @test AdventOfCode2023.Day08.day08(sample) == [6, 6]
     @test AdventOfCode2023.Day08.day08() == [19637, 8811050362409]
-    
+end
+
+@testset "Day 9" begin
+    sample = "0 3 6 9 12 15\n" *
+             "1 3 6 10 15 21\n" *
+             "10 13 16 21 30 45\n"
+    @test AdventOfCode2023.Day09.day09(sample) == [114, 2]
+    @test AdventOfCode2023.Day09.day09() == [1789635132, 913]
+
 end

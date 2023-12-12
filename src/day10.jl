@@ -6,7 +6,7 @@ using AdventOfCode2023
 function day10(input::String = readInput(joinpath(@__DIR__, "..", "data", "day10.txt")))
     data = map(x -> x[1], reduce(vcat, permutedims.(map(x -> split(x, ""), split(input)))))
     spos = findfirst(x -> x == 'S', data)
-    data[spos] = 'F'
+    data[spos] = 'F'  # Note: This still depends on the users input...
     p1, x2positions = part1(data, spos)
     return [p1, part2(x2positions, size(data))]
 end
@@ -39,65 +39,47 @@ end
 function push_next_positions!(positions::Vector{CartesianIndex{2}}, x2pos::Vector{CartesianIndex{2}}, dmap::Matrix{Int}, cpos::CartesianIndex, c::Char)
     if c == '|'
         if dmap[cpos[1] + 1, cpos[2]] == -1
-            push!(positions, CartesianIndex(cpos[1] + 1, cpos[2]))
-            push!(x2pos, CartesianIndex(2*cpos[1], 2*cpos[2] - 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] + 1, 2*cpos[2] - 1))
+            _push_position_x2pos!(positions, x2pos, cpos, 1, 0)
         elseif dmap[cpos[1] - 1, cpos[2]] == -1
-            push!(positions, CartesianIndex(cpos[1] - 1, cpos[2]))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 2, 2*cpos[2] - 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 3, 2*cpos[2] - 1))
+            _push_position_x2pos!(positions, x2pos, cpos, -1, 0)
         end
     elseif c == '-'
         if dmap[cpos[1], cpos[2] + 1] == -1
-            push!(positions, CartesianIndex(cpos[1], cpos[2] + 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2]))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2] + 1))
+            _push_position_x2pos!(positions, x2pos, cpos, 0, 1)
         elseif dmap[cpos[1], cpos[2] - 1] == -1
-            push!(positions, CartesianIndex(cpos[1], cpos[2] - 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2] - 2))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2] - 3))
+            _push_position_x2pos!(positions, x2pos, cpos, 0, -1)
         end
     elseif c == 'F'
         if dmap[cpos[1] + 1, cpos[2]] == -1
-            push!(positions, CartesianIndex(cpos[1] + 1, cpos[2]))
-            push!(x2pos, CartesianIndex(2*cpos[1], 2*cpos[2] - 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] + 1, 2*cpos[2] - 1))
+            _push_position_x2pos!(positions, x2pos, cpos, 1, 0)
         elseif dmap[cpos[1], cpos[2] + 1] == -1
-            push!(positions, CartesianIndex(cpos[1], cpos[2] + 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2]))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2] + 1))
+            _push_position_x2pos!(positions, x2pos, cpos, 0, 1)
         end
     elseif c == '7'
         if dmap[cpos[1] + 1, cpos[2]] == -1
-            push!(positions, CartesianIndex(cpos[1] + 1, cpos[2]))
-            push!(x2pos, CartesianIndex(2*cpos[1], 2*cpos[2] - 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] + 1, 2*cpos[2] - 1))
+            _push_position_x2pos!(positions, x2pos, cpos, 1, 0)
         elseif dmap[cpos[1], cpos[2] - 1] == -1
-            push!(positions, CartesianIndex(cpos[1], cpos[2] - 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2] - 2))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2] - 3))
+            _push_position_x2pos!(positions, x2pos, cpos, 0, -1)
         end
     elseif c == 'J'
         if dmap[cpos[1] - 1, cpos[2]] == -1
-            push!(positions, CartesianIndex(cpos[1] - 1, cpos[2]))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 2, 2*cpos[2] - 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 3, 2*cpos[2] - 1))
+            _push_position_x2pos!(positions, x2pos, cpos, -1, 0)
         elseif dmap[cpos[1], cpos[2] - 1] == -1
-            push!(positions, CartesianIndex(cpos[1], cpos[2] - 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2] - 2))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2] - 3))
+            _push_position_x2pos!(positions, x2pos, cpos, 0, -1)
         end
     elseif c == 'L'
         if dmap[cpos[1] - 1, cpos[2]] == -1
-            push!(positions, CartesianIndex(cpos[1] - 1, cpos[2]))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 2, 2*cpos[2] - 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 3, 2*cpos[2] - 1))
+            _push_position_x2pos!(positions, x2pos, cpos, -1, 0)
         elseif dmap[cpos[1], cpos[2] + 1] == -1
-            push!(positions, CartesianIndex(cpos[1], cpos[2] + 1))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2]))
-            push!(x2pos, CartesianIndex(2*cpos[1] - 1, 2*cpos[2] + 1))
+            _push_position_x2pos!(positions, x2pos, cpos, 0, 1)
         end
     end
+end
+
+function _push_position_x2pos!(positions::Vector{CartesianIndex{2}}, x2pos::Vector{CartesianIndex{2}}, cpos::CartesianIndex, Δx::Int, Δy::Int)
+    push!(positions, CartesianIndex(cpos[1] + Δx, cpos[2] + Δy))
+    push!(x2pos, CartesianIndex(2*(cpos[1] + Δx) - 1, 2*(cpos[2] + Δy) - 1))
+    push!(x2pos, CartesianIndex(2*cpos[1] + Δx - 1, 2*cpos[2] + Δy - 1))
 end
 
 function part2(x2pos::Vector{CartesianIndex{2}}, osize::Tuple{Int,Int})

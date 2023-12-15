@@ -156,3 +156,18 @@ end
     AdventOfCode2023.Day13.day13(sample) == [405, 400]
     AdventOfCode2023.Day13.day13() == [37381, 28210]
 end
+
+@testset "Day 14" begin
+    sample = "O....#....\n" *
+             "O.OO#....#\n" *
+             ".....##...\n" *
+             "OO.#O....O\n" *
+             ".O.....O#.\n" *
+             "O.#..O.#.#\n" *
+             "..O..#O..O\n" *
+             ".......O..\n" *
+             "#....###..\n" *
+             "#OO..#....\n"
+    AdventOfCode2023.Day14.day14(sample) == [136, 64]
+    AdventOfCode2023.Day14.day14() == [109424, 102509]
+end

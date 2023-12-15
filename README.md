@@ -23,7 +23,7 @@ This Julia package contains my solutions for [Advent of Code 2023](https://adven
 | 11 | [:white_check_mark:](https://adventofcode.com/2023/day/11) | 4.728 ms | 1.71 MiB | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day11.jl) |
 | 12 | [:white_check_mark:](https://adventofcode.com/2023/day/12) | 9.320 ms | 2.64 MiB | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day12.jl) |
 | 13 | [:white_check_mark:](https://adventofcode.com/2023/day/13) | 2.202 ms | 3.18 MiB | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day13.jl) |
-<!-- | 14 | [:white_check_mark:](https://adventofcode.com/2023/day/14) |  |  | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day14.jl) | -->
+| 14 | [:white_check_mark:](https://adventofcode.com/2023/day/14) | 68.515 ms | 62.11 MiB | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day14.jl) |
 <!-- | 15 | [:white_check_mark:](https://adventofcode.com/2023/day/15) |  |  | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day15.jl) | -->
 <!-- | 16 | [:white_check_mark:](https://adventofcode.com/2023/day/16) |  |  | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day16.jl) | -->
 <!-- | 17 | [:white_check_mark:](https://adventofcode.com/2023/day/17) |  |  | [:white_check_mark:](https://github.com/goggle/AdventOfCode2023.jl/blob/master/src/day17.jl) | -->

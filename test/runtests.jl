@@ -133,8 +133,8 @@ end
              "????.#...#... 4,1,1\n" *
              "????.######..#####. 1,6,5\n" *
              "?###???????? 3,2,1\n"
-    AdventOfCode2023.Day12.day12(sample) == [21, 525152]
-    AdventOfCode2023.Day12.day12() == [7939, 850504257483930]
+    @test AdventOfCode2023.Day12.day12(sample) == [21, 525152]
+    @test AdventOfCode2023.Day12.day12() == [7939, 850504257483930]
 end
 
 @testset "Day 13" begin
@@ -153,8 +153,8 @@ end
              "#####.##.\n" *
              "..##..###\n" *
              "#....#..#\n"
-    AdventOfCode2023.Day13.day13(sample) == [405, 400]
-    AdventOfCode2023.Day13.day13() == [37381, 28210]
+    @test AdventOfCode2023.Day13.day13(sample) == [405, 400]
+    @test AdventOfCode2023.Day13.day13() == [37381, 28210]
 end
 
 @testset "Day 14" begin
@@ -168,6 +168,12 @@ end
              ".......O..\n" *
              "#....###..\n" *
              "#OO..#....\n"
-    AdventOfCode2023.Day14.day14(sample) == [136, 64]
-    AdventOfCode2023.Day14.day14() == [109424, 102509]
+    @test AdventOfCode2023.Day14.day14(sample) == [136, 64]
+    @test AdventOfCode2023.Day14.day14() == [109424, 102509]
+end
+
+@testset "Day 15" begin
+    sample = "rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7\n"
+    @test AdventOfCode2023.Day15.day15(sample) == [1320, 145]
+    @test AdventOfCode2023.Day15.day15() == [510013, 268497]
 end

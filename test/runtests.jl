@@ -177,3 +177,18 @@ end
     @test AdventOfCode2023.Day15.day15(sample) == [1320, 145]
     @test AdventOfCode2023.Day15.day15() == [510013, 268497]
 end
+
+@testset "Day 16" begin
+    sample = ".|...\\...." * "\n" *
+             "|.-.\\....." * "\n" *
+             ".....|-..." * "\n" *
+             "........|." * "\n" *
+             ".........." * "\n" *
+             ".........\\" * "\n" *
+             "..../.\\\\.." * "\n" *
+             ".-.-/..|.." * "\n" *
+             ".|....-|.\\" * "\n" *
+             "..//.|...." * "\n"
+    @test AdventOfCode2023.Day16.day16(sample) == [46, 51]
+    @test AdventOfCode2023.Day16.day16() == [7788, 7987]
+end

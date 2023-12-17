@@ -41,7 +41,7 @@ function part2(data::Matrix{Char})
 end
 
 function traverse_map(data::Matrix{Char}, posx::Int, posy::Int, dirx::Int, diry::Int)
-    visited = zeros(Bool, size(data,1), size(data, 2), 3, 3)
+    visited = zeros(Bool, size(data, 1), size(data, 2), 3, 3)
     beams = Vector{Beam}()
     cont = true
     while cont || !isempty(beams)
@@ -84,7 +84,7 @@ function traverse_map(data::Matrix{Char}, posx::Int, posy::Int, dirx::Int, diry:
     energized = zeros(Bool, size(data))
     for i ∈ 1:3
         for j ∈ 1:3
-            energized .|= visited[:,:,i,j]
+            energized .|= @view visited[:,:,i,j]
         end
     end
     return count(energized)

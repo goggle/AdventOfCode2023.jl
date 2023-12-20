@@ -51,7 +51,7 @@ function part1(workflows, parts)
             end
         end
         if current_rules == "A"
-            push!(accepted, copy(part))
+            push!(accepted, part)
         end
     end
 

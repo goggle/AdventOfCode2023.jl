@@ -251,3 +251,21 @@ end
     @test AdventOfCode2023.Day19.day19(sample) == [19114, 167409079868000]
     @test AdventOfCode2023.Day19.day19() == [434147, 136146366355609]
 end
+
+@testset "Day 20" begin
+    sample1 = "broadcaster -> a, b, c\n" *
+              "%a -> b\n" *
+              "%b -> c\n" *
+              "%c -> inv\n" *
+              "&inv -> a\n"
+    sample2 = "broadcaster -> a\n" *
+              "%a -> inv, con\n" *
+              "&inv -> b\n" *
+              "%b -> con\n" *
+              "&con -> output\n"
+    data1 = AdventOfCode2023.Day20.parse_input(sample1)
+    @test AdventOfCode2023.Day20.part1(data1) == 32000000
+    data2 = AdventOfCode2023.Day20.parse_input(sample2)
+    @test AdventOfCode2023.Day20.part1(data2) == 11687500
+    @test AdventOfCode2023.Day20.day20() == [737679780, 227411378431763]
+end

@@ -269,3 +269,7 @@ end
     @test AdventOfCode2023.Day20.part1(data2) == 11687500
     @test AdventOfCode2023.Day20.day20() == [737679780, 227411378431763]
 end
+
+@testset "Day 21" begin
+    @test AdventOfCode2023.Day21.day21() == [3847, 637537341306357]
+end

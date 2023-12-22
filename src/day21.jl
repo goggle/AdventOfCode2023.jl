@@ -54,7 +54,7 @@ function part2(data::Matrix{Char}, start::CartesianIndex{2})
     #    r₂ = p(1) = a + b + c
     #    r₃ = p(2) = 4a + 2b + c
     #
-    # Solving this linear sytem of equations for the unknowns a, b and c gives
+    # Solving this linear system of equations for the unknowns a, b and c gives
     #    a = (r₃ + r₁ - 2₂) / 2
     #    b = (4r₂ - 3r₁ - r₃) / 2
     #    c = r₁

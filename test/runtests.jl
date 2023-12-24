@@ -2,7 +2,7 @@ using AdventOfCode2023
 using Test
 
 @testset "Day 1" begin
-    # @test AdventOfCode2023.Day01.day01() == [54708, 54087]
+    @test AdventOfCode2023.Day01.day01() == [54708, 54087]
 end
 
 @testset "Day 2" begin
@@ -27,7 +27,7 @@ end
              "...\$.*....\n" *
              ".664.598..\n"
     @test AdventOfCode2023.Day03.day03(sample) == [4361, 467835]
-    # @test AdventOfCode2023.Day03.day03() == [509115, 75220503]
+    @test AdventOfCode2023.Day03.day03() == [509115, 75220503]
 end
 
 @testset "Day 4" begin
@@ -38,7 +38,7 @@ end
              "Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36\n" *
              "Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11\n"
     @test AdventOfCode2023.Day04.day04(sample) == [13, 30]
-    # @test AdventOfCode2023.Day04.day04() == [25231, 9721255]
+    @test AdventOfCode2023.Day04.day04() == [25231, 9721255]
 end
 
 @testset "Day 5" begin
@@ -69,14 +69,14 @@ end
              "60 56 37\n" *
              "56 93 4\n"
     @test AdventOfCode2023.Day05.day05(sample) == [35, 46]
-    # @test AdventOfCode2023.Day05.day05() == [403695602, 219529182]
+    @test AdventOfCode2023.Day05.day05() == [403695602, 219529182]
 end
 
 @testset "Day 6" begin
     sample = "Time:      7  15   30\n" *
              "Distance:  9  40  200\n"
     @test AdventOfCode2023.Day06.day06(sample) == [288, 71503]
-    # @test AdventOfCode2023.Day06.day06() == [1155175, 35961505]
+    @test AdventOfCode2023.Day06.day06() == [1155175, 35961505]
 end
 
 @testset "Day 7" begin
@@ -86,7 +86,7 @@ end
              "KTJJT 220\n" *
              "QQQJA 483\n"
     @test AdventOfCode2023.Day07.day07(sample) == [6440, 5905]
-    # @test AdventOfCode2023.Day07.day07() == [253910319, 254083736]
+    @test AdventOfCode2023.Day07.day07() == [253910319, 254083736]
 end
 
 @testset "Day 8" begin
@@ -96,7 +96,7 @@ end
              "BBB = (AAA, ZZZ)\n" *
              "ZZZ = (ZZZ, ZZZ)\n"
     @test AdventOfCode2023.Day08.day08(sample) == [6, 6]
-    # @test AdventOfCode2023.Day08.day08() == [19637, 8811050362409]
+    @test AdventOfCode2023.Day08.day08() == [19637, 8811050362409]
 end
 
 @testset "Day 9" begin
@@ -104,11 +104,11 @@ end
              "1 3 6 10 15 21\n" *
              "10 13 16 21 30 45\n"
     @test AdventOfCode2023.Day09.day09(sample) == [114, 2]
-    # @test AdventOfCode2023.Day09.day09() == [1789635132, 913]
+    @test AdventOfCode2023.Day09.day09() == [1789635132, 913]
 end
 
 @testset "Day 10" begin
-    # @test AdventOfCode2023.Day10.day10() == [6968, 413]
+    @test AdventOfCode2023.Day10.day10() == [6968, 413]
 end
 
 @testset "Day 11" begin
@@ -123,7 +123,7 @@ end
              ".......#..\n" *
              "#...#.....\n"
     @test AdventOfCode2023.Day11.day11(sample) == [374, 82000210]
-    # @test AdventOfCode2023.Day11.day11() == [10490062, 382979724122]
+    @test AdventOfCode2023.Day11.day11() == [10490062, 382979724122]
 end
 
 @testset "Day 12" begin
@@ -134,7 +134,7 @@ end
              "????.######..#####. 1,6,5\n" *
              "?###???????? 3,2,1\n"
     @test AdventOfCode2023.Day12.day12(sample) == [21, 525152]
-    # @test AdventOfCode2023.Day12.day12() == [7939, 850504257483930]
+    @test AdventOfCode2023.Day12.day12() == [7939, 850504257483930]
 end
 
 @testset "Day 13" begin
@@ -154,7 +154,7 @@ end
              "..##..###\n" *
              "#....#..#\n"
     @test AdventOfCode2023.Day13.day13(sample) == [405, 400]
-    # @test AdventOfCode2023.Day13.day13() == [37381, 28210]
+    @test AdventOfCode2023.Day13.day13() == [37381, 28210]
 end
 
 @testset "Day 14" begin
@@ -169,13 +169,13 @@ end
              "#....###..\n" *
              "#OO..#....\n"
     @test AdventOfCode2023.Day14.day14(sample) == [136, 64]
-    # @test AdventOfCode2023.Day14.day14() == [109424, 102509]
+    @test AdventOfCode2023.Day14.day14() == [109424, 102509]
 end
 
 @testset "Day 15" begin
     sample = "rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7\n"
     @test AdventOfCode2023.Day15.day15(sample) == [1320, 145]
-    # @test AdventOfCode2023.Day15.day15() == [510013, 268497]
+    @test AdventOfCode2023.Day15.day15() == [510013, 268497]
 end
 
 @testset "Day 16" begin
@@ -190,7 +190,7 @@ end
              ".|....-|.\\" * "\n" *
              "..//.|...." * "\n"
     @test AdventOfCode2023.Day16.day16(sample) == [46, 51]
-    # @test AdventOfCode2023.Day16.day16() == [7788, 7987]
+    @test AdventOfCode2023.Day16.day16() == [7788, 7987]
 end
 
 @testset "Day 17" begin
@@ -208,7 +208,7 @@ end
              "2546548887735\n" *
              "4322674655533\n"
     @test AdventOfCode2023.Day17.day17(sample) == [102, 94]
-    # @test AdventOfCode2023.Day17.day17() == [1065, 1249]
+    @test AdventOfCode2023.Day17.day17() == [1065, 1249]
 end
 
 @testset "Day 18" begin
@@ -227,7 +227,7 @@ end
              "L 2 (#015232)\n" *
              "U 2 (#7a21e3)\n"
     @test AdventOfCode2023.Day18.day18(sample) == [62, 952408144115]
-    # @test AdventOfCode2023.Day18.day18() == [56678, 79088855654037]
+    @test AdventOfCode2023.Day18.day18() == [56678, 79088855654037]
 end
 
 @testset "Day 19" begin
@@ -249,7 +249,7 @@ end
              "{x=2461,m=1339,a=466,s=291}\n" *
              "{x=2127,m=1623,a=2188,s=1013}\n"
     @test AdventOfCode2023.Day19.day19(sample) == [19114, 167409079868000]
-    # @test AdventOfCode2023.Day19.day19() == [434147, 136146366355609]
+    @test AdventOfCode2023.Day19.day19() == [434147, 136146366355609]
 end
 
 @testset "Day 20" begin
@@ -267,11 +267,11 @@ end
     @test AdventOfCode2023.Day20.part1(data1) == 32000000
     data2 = AdventOfCode2023.Day20.parse_input(sample2)
     @test AdventOfCode2023.Day20.part1(data2) == 11687500
-    # @test AdventOfCode2023.Day20.day20() == [737679780, 227411378431763]
+    @test AdventOfCode2023.Day20.day20() == [737679780, 227411378431763]
 end
 
 @testset "Day 21" begin
-    # @test AdventOfCode2023.Day21.day21() == [3847, 637537341306357]
+    @test AdventOfCode2023.Day21.day21() == [3847, 637537341306357]
 end
 
 @testset "Day 22" begin
@@ -283,5 +283,5 @@ end
              "0,1,6~2,1,6\n" *
              "1,1,8~1,1,9\n"
     @test AdventOfCode2023.Day22.day22(sample) == [5, 7]
-    # @test AdventOfCode2023.Day22.day22() == [519, 109531]
+    @test AdventOfCode2023.Day22.day22() == [519, 109531]
 end

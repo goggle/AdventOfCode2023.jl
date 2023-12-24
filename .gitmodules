@@ -1,0 +1,3 @@
+[submodule "data"]
+	path = data
+	url = git@github.com:goggle/advent-of-code-2023-input.git

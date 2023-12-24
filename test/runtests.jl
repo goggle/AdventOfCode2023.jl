@@ -12,7 +12,7 @@ end
              "Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red\n" *
              "Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green\n"
     @test AdventOfCode2023.Day02.day02(sample) == [8, 2286]
-    # @test AdventOfCode2023.Day02.day02() == [2486, 87984]
+    @test AdventOfCode2023.Day02.day02() == [2486, 87984]
 end
 
 @testset "Day 3" begin

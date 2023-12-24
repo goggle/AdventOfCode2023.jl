@@ -273,3 +273,15 @@ end
 @testset "Day 21" begin
     # @test AdventOfCode2023.Day21.day21() == [3847, 637537341306357]
 end
+
+@testset "Day 22" begin
+    sample = "1,0,1~1,2,1\n" *
+             "0,0,2~2,0,2\n" *
+             "0,2,3~2,2,3\n" *
+             "0,0,4~0,2,4\n" *
+             "2,0,5~2,2,5\n" *
+             "0,1,6~2,1,6\n" *
+             "1,1,8~1,1,9\n"
+    @test AdventOfCode2023.Day22.day22(sample) == [5, 7]
+    # @test AdventOfCode2023.Day22.day22() == [519, 109531]
+end

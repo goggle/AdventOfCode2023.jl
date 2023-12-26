@@ -313,3 +313,13 @@ end
     @test AdventOfCode2023.Day23.day23(sample) == [94, 154]
     @test AdventOfCode2023.Day23.day23() == [2394, 6554]
 end
+
+@testset "Day 24" begin
+    sample = "19, 13, 30 @ -2,  1, -2\n" *
+             "18, 19, 22 @ -1, -1, -2\n" *
+             "20, 25, 34 @ -2, -2, -4\n" *
+             "12, 31, 28 @ -1, -2, -1\n" *
+             "20, 19, 15 @  1, -5, -3\n"
+    hailstones_sample = AdventOfCode2023.Day24.parse_input(sample)
+    @test AdventOfCode2023.Day24.part1(hailstones_sample; leftbound=7, rightbound=27) == 2
+end

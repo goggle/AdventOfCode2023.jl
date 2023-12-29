@@ -325,3 +325,21 @@ end
     @test AdventOfCode2023.Day24.part2(hailstones_sample) == 47
     @test AdventOfCode2023.Day24.day24() == [20336, 677656046662770]
 end
+
+@testset "Day 25" begin
+    sample = "jqt: rhn xhk nvd\n" *
+             "rsh: frs pzl lsr\n" *
+             "xhk: hfx\n" *
+             "cmg: qnr nvd lhk bvb\n" *
+             "rhn: xhk bvb hfx\n" *
+             "bvb: xhk hfx\n" *
+             "pzl: lsr hfx nvd\n" *
+             "qnr: nvd\n" *
+             "ntq: jqt hfx bvb xhk\n" *
+             "nvd: lhk\n" *
+             "lsr: lhk\n" *
+             "rzs: qnr cmg lsr rsh\n" *
+             "frs: qnr lhk lsr\n"
+    @test AdventOfCode2023.Day25.day25(sample) == 54
+    @test AdventOfCode2023.Day25.day25() == 527790
+end

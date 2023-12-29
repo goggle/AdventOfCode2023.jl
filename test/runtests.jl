@@ -322,4 +322,6 @@ end
              "20, 19, 15 @  1, -5, -3\n"
     hailstones_sample = AdventOfCode2023.Day24.parse_input(sample)
     @test AdventOfCode2023.Day24.part1(hailstones_sample; leftbound=7, rightbound=27) == 2
+    @test AdventOfCode2023.Day24.part2(hailstones_sample) == 47
+    @test AdventOfCode2023.Day24.day24() == [20336, 677656046662770]
 end

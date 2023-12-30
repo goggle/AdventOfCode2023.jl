@@ -82,8 +82,8 @@ Each puzzle can now be run with `dayXY()`:
 ```julia
 julia> day01()
 2-element Vector{Int64}:
- 74711
- 209481
+ 54708
+ 54087
 ```
 
 This will use my personal input. If you want to use another input, provide it
@@ -94,6 +94,6 @@ julia> input = readInput("/path/to/input.txt")
 
 julia> AdventOfCode2023.Day01.day01(input)
 2-element Vector{Int64}:
- 74711
- 209481
+ 54708
+ 54087
 ```

@@ -34,9 +34,9 @@ function perform_mapping(data::Dict{Tuple{String,String},Matrix{Int}}, source::S
     return number
 end
 
-function perform_mapping(data::Dict{Tuple{String,String},Matrix{Int}}, source::String, destination::String, numbers::Set{UnitRange{Int}})
+function perform_mapping(data::Dict{Tuple{String,String},Matrix{Int}}, source::String, destination::String, numbers::Vector{UnitRange{Int}})
     M = data[(source, destination)]
-    newset = Set{UnitRange{Int}}()
+    new = UnitRange{Int}[]
     while !isempty(numbers)
         mapped = false
         ran = pop!(numbers)
@@ -44,7 +44,7 @@ function perform_mapping(data::Dict{Tuple{String,String},Matrix{Int}}, source::S
             inter = intersect(ran, M[row, 2]:M[row, 2]+M[row, 3]-1)
             if !isempty(inter)
                 mapped = true
-                push!(newset, inter[1] - M[row,2] + M[row,1] : inter[end] - M[row,2] + M[row,1])
+                push!(new, inter[1] - M[row,2] + M[row,1] : inter[end] - M[row,2] + M[row,1])
                 left = ran[1]:inter[1]-1
                 isempty(left) || push!(numbers, left)
                 right = inter[end]+1:ran[end]
@@ -52,9 +52,9 @@ function perform_mapping(data::Dict{Tuple{String,String},Matrix{Int}}, source::S
                 break
             end
         end
-        mapped || push!(newset, ran)
+        mapped || push!(new, ran)
     end
-    return newset
+    return new
 end
 
 function part1(seeds::Vector{Int}, data::Dict{Tuple{String,String},Matrix{Int}})
@@ -75,7 +75,7 @@ function part2(seeds::Vector{Int}, data::Dict{Tuple{String,String},Matrix{Int}})
     seedstarts = seeds[1:2:end]
     seedlengths = seeds[2:2:end]
     for (ss, sl) ∈ zip(seedstarts, seedlengths)
-        numbers = Set([ss:ss+sl-1])
+        numbers = [ss:ss+sl-1]
         for (src, dest) ∈ zip(chain[1:end-1], chain[2:end])
             numbers = perform_mapping(data, src, dest, numbers)
         end

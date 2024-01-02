@@ -36,43 +36,20 @@ function part1(data::Matrix{Char}, spos::CartesianIndex{2})
     return maximum(distance), x2positions
 end
 
+const global d = Dict(
+    '|' => ((1, 0), (-1, 0)),
+    '-' => ((0, 1), (0, -1)),
+    'F' => ((1, 0), (0, 1)),
+    '7' => ((1, 0), (0, -1)),
+    'J' => ((-1, 0), (0, -1)),
+    'L' => ((-1, 0), (0, 1))
+)
 function push_next_positions!(positions::Vector{CartesianIndex{2}}, x2pos::Vector{CartesianIndex{2}}, dmap::Matrix{Int}, cpos::CartesianIndex, c::Char)
-    if c == '|'
-        if dmap[cpos[1] + 1, cpos[2]] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, 1, 0)
-        elseif dmap[cpos[1] - 1, cpos[2]] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, -1, 0)
-        end
-    elseif c == '-'
-        if dmap[cpos[1], cpos[2] + 1] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, 0, 1)
-        elseif dmap[cpos[1], cpos[2] - 1] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, 0, -1)
-        end
-    elseif c == 'F'
-        if dmap[cpos[1] + 1, cpos[2]] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, 1, 0)
-        elseif dmap[cpos[1], cpos[2] + 1] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, 0, 1)
-        end
-    elseif c == '7'
-        if dmap[cpos[1] + 1, cpos[2]] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, 1, 0)
-        elseif dmap[cpos[1], cpos[2] - 1] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, 0, -1)
-        end
-    elseif c == 'J'
-        if dmap[cpos[1] - 1, cpos[2]] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, -1, 0)
-        elseif dmap[cpos[1], cpos[2] - 1] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, 0, -1)
-        end
-    elseif c == 'L'
-        if dmap[cpos[1] - 1, cpos[2]] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, -1, 0)
-        elseif dmap[cpos[1], cpos[2] + 1] == -1
-            _push_position_x2pos!(positions, x2pos, cpos, 0, 1)
-        end
+
+    if dmap[cpos[1] + d[c][1][1], cpos[2] + d[c][1][2]] == -1
+        _push_position_x2pos!(positions, x2pos, cpos, d[c][1][1], d[c][1][2])
+    elseif dmap[cpos[1] + d[c][2][1], cpos[2] + d[c][2][2]] == -1
+        _push_position_x2pos!(positions, x2pos, cpos, d[c][2][1], d[c][2][2])
     end
 end
 
@@ -90,9 +67,9 @@ function part2(x2pos::Vector{CartesianIndex{2}}, osize::Tuple{Int,Int})
 end
 
 function flood!(maze::Matrix{Int8})
-    positions = Set{CartesianIndex{2}}([CartesianIndex(1,1)])
+    positions = CartesianIndex{2}[CartesianIndex(1,1)]
     while !isempty(positions)
-        pos = pop!(positions)
+        pos = popfirst!(positions)
         maze[pos] = 2
         nextidx = [CartesianIndex(pos[1] + 1, pos[2]),
                    CartesianIndex(pos[1] - 1, pos[2]),

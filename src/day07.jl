@@ -16,13 +16,12 @@ end
 function day07(input::String = readInput(joinpath(@__DIR__, "..", "data", "day07.txt")))
     hands = [Hand([_to_value(c) for c ∈ x[1]], parse(Int, x[2])) for x ∈ split.(eachsplit(rstrip(input), "\n"), " ")]
     p1 = solve(hands)
-    handsp2 = [Handp2([_to_value(c; p2=true) for c ∈ x[1]], parse(Int, x[2])) for x ∈ split.(eachsplit(rstrip(input), "\n"), " ")]
+    handsp2 = map(y -> Handp2(map(x -> x == 11 ? 1 : x, y.cards), y.bid), hands)
     p2 = solve(handsp2)
     return [p1, p2]
 end
 
-function _to_value(c::Char; p2 = false)
-    p2 && c == 'J' && return Int8(1)
+function _to_value(c::Char)
     isdigit(c) && return Int8(c - '0')
     c == 'T' && return Int8(10)
     c == 'J' && return Int8(11)

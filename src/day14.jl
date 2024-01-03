@@ -16,8 +16,8 @@ function day14(input::String = readInput(joinpath(@__DIR__, "..", "data", "day14
             pushfirst!(cubes, 0)
             push!(cubes, length(col) + 1)
             cubepos[i][j] = cubes
-            mat = rotr90(mat)
         end
+        mat = rotr90(mat)
     end
     return [part1(data, cubepos), part2(data, cubepos)]
 end

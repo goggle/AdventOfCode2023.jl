@@ -2,26 +2,18 @@ module Day14
 
 using AdventOfCode2023
 
-@enum Space rounded_rock=1 cube_rock=2 empty=3
-
-function to_space(c::Char)
-    c == '.' && return empty
-    c == 'O' && return rounded_rock
-    c == '#' && return cube_rock
-end
-
 function day14(input::String = readInput(joinpath(@__DIR__, "..", "data", "day14.txt")))
-    data = map(x -> to_space(x[1]), reduce(vcat, permutedims.(map(x -> split(x, ""), split(input)))))
+    data = map(x -> x[1], reduce(vcat, permutedims.(map(x -> split(x, ""), split(input)))))
     return [part1(data), part2(data)]
 end
 
-function part1(data::Matrix{Space})
+function part1(data::Matrix{Char})
     d = copy(data)
     tilt_north!(d)
     return score(d)
 end
 
-function part2(data::Matrix{Space})
+function part2(data::Matrix{Char})
     mat = copy(data)
 
     d = Dict{String,Int}()
@@ -44,32 +36,32 @@ function part2(data::Matrix{Space})
     return score(mat)
 end
 
-function tilt_north!(mat::Matrix{Space})
+function tilt_north!(mat::Matrix{Char})
     for col ∈ eachcol(mat)
-        cubes = findall(x -> x == cube_rock, col)
+        cubes = findall(x -> x == '#', col)
         pushfirst!(cubes, 0)
         push!(cubes, length(col) + 1)
         for i ∈ firstindex(cubes):lastindex(cubes)-1
             c1, c2 = cubes[i], cubes[i+1]
             c2 - c1 == 1 && continue
-            nround = count(x -> x == rounded_rock, @view col[c1+1:c2-1])
-            col[c1+1:c1+nround] .= rounded_rock
-            col[c1+nround+1:c2-1] .= empty
+            nround = count(x -> x == 'O', @view col[c1+1:c2-1])
+            col[c1+1:c1+nround] .= 'O'
+            col[c1+nround+1:c2-1] .= '.'
         end
     end
 end
 
-function score(mat::Matrix{Space})
+function score(mat::Matrix{Char})
     s = 0
     multi = size(mat,1)
     for row ∈ eachrow(mat)
-        s += count(x -> x == rounded_rock, row) * multi
+        s += count(x -> x == 'O', row) * multi
         multi -= 1
     end
     return s
 end
 
-function cycle!(mat::Matrix{Space})
+function cycle!(mat::Matrix{Char})
     for _ ∈ 1:4
         tilt_north!(mat)
         mat = rotr90(mat)

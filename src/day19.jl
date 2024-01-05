@@ -10,7 +10,7 @@ end
 
 function parse_input(input::AbstractString)
     a, b = split(rstrip(input), "\n\n")
-    workflows = Dict{String,Tuple{Vector{Tuple{Char, Char, Int, String}}, String}}()
+    workflows = Dict{String,Tuple{Vector{Tuple{Char,Char,Int,String}},String}}()
     for line ∈ eachsplit(a, "\n")
         m = match(r"([a-z]+)\{(.+)\}", line)
         v = Vector{Tuple{Char, Char, Int, String}}()
@@ -33,7 +33,7 @@ function parse_input(input::AbstractString)
     return workflows, parts
 end
 
-function part1(workflows, parts)
+function part1(workflows::Dict{String,Tuple{Vector{Tuple{Char,Char,Int,String}},String}}, parts::Vector{Dict{Char,Int}})
     accepted = Set()
     for part ∈ parts
         current_rules = "in"
@@ -83,9 +83,9 @@ function to_index(c::Char)
     c == 's' && return 4
 end
 
-function part2(workflows)
-    solutions = []
-    p2rec(solutions, (1:4000, 1:4000, 1:4000, 1:4000), "in", workflows)
+function part2(workflows::Dict{String,Tuple{Vector{Tuple{Char,Char,Int,String}},String}})
+    solutions = NTuple{4,UnitRange{Int}}[]
+    p2rec!(solutions, (1:4000, 1:4000, 1:4000, 1:4000), "in", workflows)
     s = 0
     for sol ∈ solutions
         s += prod(length.(sol))
@@ -93,13 +93,13 @@ function part2(workflows)
     return s
 end
 
-function p2rec(solutions, ranges, rname, workflows)
+function p2rec!(solutions::Vector{NTuple{4,UnitRange{Int}}}, ranges::NTuple{4,UnitRange{Int}}, rname::String, workflows::Dict{String,Tuple{Vector{Tuple{Char,Char,Int,String}},String}})
     for rule ∈ workflows[rname][1]
         posrange = get_inter(to_index(rule[1]), rule[2], rule[3], ranges)
         if rule[4] == "A"
             push!(solutions, posrange)
         elseif rule[4] != "R"
-            p2rec(solutions, posrange, rule[4], workflows)
+            p2rec!(solutions, posrange, rule[4], workflows)
         end
         ranges = get_antiinter(to_index(rule[1]), rule[2], rule[3], ranges)
     end
@@ -109,7 +109,7 @@ function p2rec(solutions, ranges, rname, workflows)
     elseif workflows[rname][2] == "R"
         return
     end
-    p2rec(solutions, ranges, workflows[rname][2], workflows)
+    p2rec!(solutions, ranges, workflows[rname][2], workflows)
 end
 
 end # module

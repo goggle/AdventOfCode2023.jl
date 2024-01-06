@@ -5,41 +5,42 @@ using AdventOfCode2023
 function day21(input::String = readInput(joinpath(@__DIR__, "..", "data", "day21.txt")))
     data = map(x -> x[1], reduce(vcat, permutedims.(map(x -> split(x, ""), split(input)))))
     start = findfirst(x -> x == 'S', data)
-    data[start] = '.'
-
-    return [part1(data, start), part2(data, start)]
+    M = zeros(Int8, size(data))
+    M[data .== '#'] .= -1
+    return [part1(M, start), part2(M, start)]
 end
 
-function part1(data::Matrix{Char}, start::CartesianIndex{2}; nsteps::Int = 64)
-    data = copy(data)
-    data[start] = 'O'
+function part1(M::Matrix{Int8}, start::CartesianIndex{2}; nsteps::Int = 64)
+    M = copy(M)
+    M[start] = 1
     for _ ∈ 1:nsteps
-        step!(data)
+        step!(M)
     end
-    return findall(x -> x == 'O', data) |> length
+    return sum(x -> x > 0, M)
 end
 
-function part2(data::Matrix{Char}, start::CartesianIndex{2})
-    sdata = copy(data)
-    sdata[start] = 'O'
-    M = [data data data data data;
-         data data data data data;
-         data data sdata data data;
-         data data data data data;
-         data data data data data]
+function part2(M::Matrix{Int8}, start::CartesianIndex{2})
+    MM = copy(M)
+    MM[start] = 1
+    bigM = [M M M M M ;
+            M M M M M ;
+            M M MM M M ;
+            M M M M M ;
+            M M M M M ]
+
     reachables = Int[]
     for _ ∈ 1:65
-        step!(M)
+        step!(bigM)
     end
-    push!(reachables, findall(x -> x == 'O', M) |> length)
+    push!(reachables, findall(x -> x == 1, bigM) |> length)
     for _ ∈ 1:131
-        step!(M)
+        step!(bigM)
     end
-    push!(reachables, findall(x -> x == 'O', M) |> length)
+    push!(reachables, findall(x -> x == 1, bigM) |> length)
     for _ ∈ 1:131
-        step!(M)
+        step!(bigM)
     end
-    push!(reachables, findall(x -> x == 'O', M) |> length)
+    push!(reachables, findall(x -> x == 1, bigM) |> length)
 
     # Some explanations:
     #
@@ -68,14 +69,14 @@ function part2(data::Matrix{Char}, start::CartesianIndex{2})
     return Int(p(Int64(202300)))
 end
 
-function step!(data)
-    positions = findall(x -> x == 'O', data)
-    data[positions] .= '.'
-    dirs = CartesianIndex.((1,0,-1,0),(0,1,0,-1))
+function step!(data::Matrix{Int8})
+    positions = findall(x -> x == 1, data)
+    data[positions] .= 0
+    dirs = CartesianIndex.((1,0,-1,0), (0,1,0,-1))
     for pos ∈ positions
         for dir ∈ dirs
-            if data[pos + dir] != '#'
-                data[pos + dir] = 'O'
+            if data[pos + dir] != -1
+                data[pos + dir] = 1
             end
         end
     end

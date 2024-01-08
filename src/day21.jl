@@ -53,8 +53,8 @@ function part2(M::Matrix{Int8}, start::CartesianIndex{2})
     visited = zeros(Bool, size(bigM))
     visited[start] = true
     reachables[1], queue = bfs!(bigM, visited, [start], start, 65)
-    reachables[2], queue = bfs!(bigM, visited, queue, start, 196)
-    reachables[3], _ = bfs!(bigM, visited, queue, start, 327)
+    reachables[2], queue = bfs!(bigM, visited, queue, start, 65 + 131)
+    reachables[3], _ = bfs!(bigM, visited, queue, start, 65 + 2 * 131)
 
     # Some explanations:
     #

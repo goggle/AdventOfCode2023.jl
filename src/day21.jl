@@ -2,6 +2,8 @@ module Day21
 
 using AdventOfCode2023
 
+using DataStructures
+
 function day21(input::String = readInput(joinpath(@__DIR__, "..", "data", "day21.txt")))
     data = map(x -> x[1], reduce(vcat, permutedims.(map(x -> split(x, ""), split(input)))))
     start = findfirst(x -> x == 'S', data)
@@ -10,37 +12,49 @@ function day21(input::String = readInput(joinpath(@__DIR__, "..", "data", "day21
     return [part1(M, start), part2(M, start)]
 end
 
-function part1(M::Matrix{Int8}, start::CartesianIndex{2}; nsteps::Int = 64)
-    M = copy(M)
-    M[start] = 1
-    for _ ∈ 1:nsteps
-        step!(M)
+function part1(M::Matrix{Int8}, start::CartesianIndex{2})
+    visited = zeros(Bool, size(M))
+    visited[start] = true
+    return bfs!(copy(M), visited, [start], start, 64)[1]
+end
+
+dist(a::CartesianIndex{2}, b::CartesianIndex{2}) = abs.((a - b).I) |> sum
+
+function bfs!(M::Matrix{Int8}, visited::Matrix{Bool}, queue::Vector{CartesianIndex{2}}, start::CartesianIndex{2}, nsteps::Int)
+    dirs = CartesianIndex.((1,0,-1,0), (0,1,0,-1))
+    conqueue = Vector{CartesianIndex{2}}()
+    while !isempty(queue)
+        pos = popfirst!(queue)
+        M[pos] = 1
+        for dir ∈ dirs
+            cand = pos + dir
+            if checkbounds(Bool, M, cand) && !visited[cand] && M[cand] == 0
+                if dist(start, cand) <= nsteps
+                    push!(queue, cand)
+                    visited[cand] = true
+                else
+                    push!(conqueue, cand)
+                end
+            end
+        end
     end
-    return sum(x -> x > 0, M)
+    parity = nsteps % 2
+    return [dist(pos, start) % 2 == parity for pos ∈ findall(x -> x == 1, M)] |> sum, conqueue
 end
 
 function part2(M::Matrix{Int8}, start::CartesianIndex{2})
-    MM = copy(M)
-    MM[start] = 1
+    start = CartesianIndex(start[1] + 2 * 131, start[2] + 2 * 131)
     bigM = [M M M M M ;
             M M M M M ;
-            M M MM M M ;
+            M M M M M ;
             M M M M M ;
             M M M M M ]
-
-    reachables = Int[]
-    for _ ∈ 1:65
-        step!(bigM)
-    end
-    push!(reachables, findall(x -> x == 1, bigM) |> length)
-    for _ ∈ 1:131
-        step!(bigM)
-    end
-    push!(reachables, findall(x -> x == 1, bigM) |> length)
-    for _ ∈ 1:131
-        step!(bigM)
-    end
-    push!(reachables, findall(x -> x == 1, bigM) |> length)
+    reachables = Int[0, 0, 0]
+    visited = zeros(Bool, size(bigM))
+    visited[start] = true
+    reachables[1], queue = bfs!(bigM, visited, [start], start, 65)
+    reachables[2], queue = bfs!(bigM, visited, queue, start, 196)
+    reachables[3], _ = bfs!(bigM, visited, queue, start, 327)
 
     # Some explanations:
     #
@@ -67,19 +81,6 @@ function part2(M::Matrix{Int8}, start::CartesianIndex{2})
     c = reachables[1] // 1
     p(x) = a*x^2 + b*x + c
     return Int(p(Int64(202300)))
-end
-
-function step!(data::Matrix{Int8})
-    positions = findall(x -> x == 1, data)
-    data[positions] .= 0
-    dirs = CartesianIndex.((1,0,-1,0), (0,1,0,-1))
-    for pos ∈ positions
-        for dir ∈ dirs
-            if data[pos + dir] != -1
-                data[pos + dir] = 1
-            end
-        end
-    end
 end
 
 end # module

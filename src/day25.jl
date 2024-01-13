@@ -13,7 +13,7 @@ end
 function parse_input(input::AbstractString)
     i = 1
     translations = Dict{String,Int}()
-    graph = Dict{Int, Set{Int}}()
+    graph = Dict{Int, Vector{Int}}()
     for line ∈ eachsplit(rstrip(input), "\n")
         nodes = split.(replace(line, ":" => ""), " ")
         n = Int[]
@@ -22,7 +22,7 @@ function parse_input(input::AbstractString)
                 push!(n, translations[node])
             else
                 translations[node] = i
-                graph[i] = Set{Int}()
+                graph[i] = Vector{Int}()
                 push!(n, i)
                 i += 1
             end
@@ -36,8 +36,8 @@ function parse_input(input::AbstractString)
     return graph, i - 1
 end
 
-function solve(graph::Dict{Int,Set{Int}}, total_size::Int)
-    for k = 1:total_size
+function solve(graph::Dict{Int,Vector{Int}}, total_size::Int)
+    for k = shuffle(1:total_size)
         not_connected = PriorityQueue{Int,Int}()
         connected = Set{Int}()
         for i ∈ 1:total_size

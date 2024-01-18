@@ -41,24 +41,38 @@ function part1(lines::Vector{Line}; leftbound::Int64=20_0000_000_000_000, rightb
     return c
 end
 
-function part2(lines::Vector{Line})
-    for lind=firstindex(lines):lastindex(lines)-3
-        i, j, k = lind, lind + 1, lind + 2
-        cij, sij = _coeffs_rhsscalar(lines[i], lines[j])
-        cik, sik = _coeffs_rhsscalar(lines[i], lines[k])
-        cjk, sjk = _coeffs_rhsscalar(lines[j], lines[k])
-        A = vcat(cij', cik', cjk')
-        det(A) ≈ 0 && continue
-        rhs = [sij, sik, sjk]
-        w = round.(Int, A \ rhs)
-        A = hcat((lines[i].v - w)[1:2], (w - lines[j].v)[1:2])
-        rhs = (lines[j].p - lines[i].p)[1:2]
-        t, _ = A \ rhs
-        return round.(Int, eval_at(Line(lines[i].p, lines[i].v - w), t)) |> sum
-    end
+function _build_equation(li::Line, lj::Line, ind1::Int, ind2::Int)
+    lhs = zeros(Int, 6)
+    lhs[ind1] = li.v[ind2] - lj.v[ind2]
+    lhs[ind2] = lj.v[ind1] - li.v[ind1]
+    lhs[ind1 + 3] = lj.p[ind2] - li.p[ind2]
+    lhs[ind2 + 3] = li.p[ind1] - lj.p[ind1]
+    rhs = li.p[ind1] * li.v[ind2] + lj.p[ind2] * lj.v[ind1] - li.p[ind2] * li.v[ind1] - lj.p[ind1] * lj.v[ind2]
+    return lhs, rhs
 end
 
-_coeffs_rhsscalar(l1::Line, l2::Line) = (float(l1.p) - l2.p) × (float(l1.v) - l2.v), dot(float(l1.p) - l2.p, float(l1.v) × l2.v)
+function build_system(lines::Vector{Line})
+    A = zeros(Rational{BigInt}, 6, 6)
+    rhs = zeros(Rational{BigInt}, 6)
+    baselineindex = 1
+    objx = (
+        (0, 1, 1, 2),
+        (0, 2, 1, 2),
+        (0, 1, 1, 3),
+        (0, 2, 1, 3),
+        (0, 1, 2, 3),
+        (0, 2, 2, 3)
+    )
+    for i = 1:6
+        A[i,:], rhs[i] = _build_equation(lines[baselineindex+objx[i][1]], lines[baselineindex+objx[i][2]], objx[i][3], objx[i][4])
+    end
+    return A, rhs
+end
 
+function part2(lines::Vector{Line})
+    A, rhs =  build_system(lines)
+    x = A \ rhs
+    return round(Int64, sum(x[1:3]))
+end
 
 end # module
